@@ -632,6 +632,15 @@ public class RLottieDrawable extends BitmapDrawable implements Animatable, Bitma
         this.onAnimationEndListener = onAnimationEndListener;
     }
 
+    // Compatibility for fork callers: resource metadata is now keyed by resId.
+    public RLottieDrawable(@RawRes int rawRes, String legacyName, int w, int h) {
+        this(rawRes, w, h);
+    }
+
+    public RLottieDrawable(@RawRes int rawRes, String legacyName, int w, int h, boolean startDecode, int[] colorReplacement) {
+        this(rawRes, w, h, startDecode, colorReplacement);
+    }
+
     public RLottieDrawable(@RawRes int rawRes, int w, int h) {
         this(rawRes, w, h, true, null);
     }
