@@ -7,6 +7,8 @@ plugins {
 }
 
 subprojects {
+    pluginManager.withPlugin('com.android.application') { apply plugin: 'org.jetbrains.kotlin.android' }
+    pluginManager.withPlugin('com.android.library') { apply plugin: 'org.jetbrains.kotlin.android' }
     afterEvaluate {
         if (plugins.hasPlugin("com.android.library") || plugins.hasPlugin("com.android.application")) {
             dependencies {
