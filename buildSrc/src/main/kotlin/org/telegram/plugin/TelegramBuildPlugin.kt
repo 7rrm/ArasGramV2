@@ -19,9 +19,10 @@ class TelegramBuildPlugin : Plugin<Project> {
             val task = project.tasks.register<GenerateLocalizationUtilsJavaTask>(
                 "generate${suffix}LocalizationUtilsJava"
             ) {
+                // Include fork translations (strings_neko/nax/na/meerox), not just upstream strings.xml.
                 localizationFiles.from(
                     project.fileTree("src/main/res") {
-                        include("values-*/strings.xml")
+                        include("values-*/strings*.xml")
                     }
                 )
 
