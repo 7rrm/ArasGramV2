@@ -27,12 +27,16 @@ abstract class TelegramStringsTask : DefaultTask() {
     companion object {
         private val GENERATED_EXCLUSIONS = setOf(
             "AppName",
-            "AppNameBeta"
+            "AppNameBeta",
+            // Android reads the fork launcher label directly, not from localization assets.
+            "NagramX"
         )
 
         private val STABLE_IDS_EXCLUSIONS = setOf(
             "AppName",
-            "AppNameBeta"
+            "AppNameBeta",
+            // Android reads the fork launcher label directly, not from localization assets.
+            "NagramX"
         )
 
         private const val STRING_RESOURCE_ID_BASE = 0x7F0FFFFE
