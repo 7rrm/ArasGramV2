@@ -79,6 +79,13 @@ public final class MeeroVaultPacker {
         boolean loaderPresent = false;
 
         try (ZipFile zf = new ZipFile(in)) {
+            // This is a runtime requirement, not an optional compression tweak.
+            // Keep it checked in the existing MeeroX workflow before signing.
+            ZipEntry emojiPack = zf.getEntry("assets/emoji.pack");
+            if (emojiPack == null || emojiPack.getMethod() != ZipEntry.STORED) {
+                fail("assets/emoji.pack must exist and be STORED: EmojiPack.openFd cannot read compressed assets");
+                return;
+            }
             ZipEntry target = zf.getEntry(TARGET);
             if (target == null) {
                 fail("native heart " + TARGET + " not found in " + in);

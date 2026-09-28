@@ -25,7 +25,7 @@ idea {
 def buildTimestamp = System.getenv('BUILD_TIMESTAMP') ?: '0'
 def commitId = System.getenv('COMMIT_ID')
 def verName = "${APP_VERSION_NAME}${commitId?.take(7) ? "-${commitId.take(7)}" : ''}"
-def verCode = 1261
+def verCode = 1262
 
 def officialVer = APP_VERSION_NAME
 def officialCode = APP_VERSION_CODE
@@ -72,6 +72,9 @@ android {
     defaultConfig.applicationId = APP_PACKAGE
 
     androidResources {
+        // EmojiPack uses AssetManager.openFd + mmap. A compressed .pack crashes
+        // its static initializer when the first emoji is drawn (Telegram 12.10.5).
+        noCompress += 'pack'
         localeFilters += [
                 'en', 'ar', 'de', 'es', 'es-rES', 'fa-rIR', 'in-rID', 'it', 'it-rIT', 'ja-rJP',
                 'ko', 'nl', 'pl-rPL', 'pt-rBR', 'ru-rRU', 'tr-rTR', 'uk-rUA', 'vi-rVN', 'zh-rCN', 'zh-rTW'
