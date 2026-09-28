@@ -121,6 +121,9 @@ public abstract class InstantCameraViewBase extends FrameLayout {
     /** Returns whether recording is paused or changing pause state. */
     public abstract boolean isPaused();
 
+    /** Selects the initial lens for the fork's round-video camera picker. */
+    public abstract void setUseFrontCamera(boolean front);
+
     /** Opens the camera UI and starts the selected implementation. */
     public abstract void showCamera(boolean fromPaused);
 

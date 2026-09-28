@@ -354,6 +354,20 @@ public final class InstantCameraView2 extends InstantCameraViewBase {
         );
     }
 
+    private RoundVideoSession.CameraFacing requestedInitialFacing;
+
+    @Override
+    public void setUseFrontCamera(boolean front) {
+        requestedInitialFacing = front ? RoundVideoSession.CameraFacing.FRONT : RoundVideoSession.CameraFacing.BACK;
+    }
+
+    private RoundVideoSession.CameraFacing getInitialFacing() {
+        int mode = xyz.nextalone.nagram.NaConfig.INSTANCE.getCameraInVideoMessages().Int();
+        if (mode == 0) return RoundVideoSession.CameraFacing.FRONT;
+        if (mode == 1) return RoundVideoSession.CameraFacing.BACK;
+        return requestedInitialFacing != null ? requestedInitialFacing : SharedSettings.roundVideoLastCamera.get();
+    }
+
     @Override
     public void showCamera(boolean fromPaused) {
         if (session != null) return;
@@ -370,7 +384,7 @@ public final class InstantCameraView2 extends InstantCameraViewBase {
         upload = new TelegramRoundVideoUpload(currentAccount, secretChat);
         activeOutputResolution = SharedSettings.roundVideoOutputResolution.get();
         session = new RoundVideoSession.Builder(getContext(), textureView)
-                .setInitialFacing(SharedSettings.roundVideoLastCamera.get())
+                .setInitialFacing(getInitialFacing())
                 .setOutputResolution(activeOutputResolution)
                 .setVideoBitrate(SharedSettings.roundVideoVideoBitrate.get())
                 .setCameraResolution(SharedSettings.roundVideoCameraResolution.get())
