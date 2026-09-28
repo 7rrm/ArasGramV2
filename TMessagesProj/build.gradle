@@ -5,7 +5,8 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
-    id 'org.telegram.lottie-meta'
+    id 'org.telegram.build-plugin'
+    id 'org.telegram.build-app-plugin'
     id 'idea'
 }
 
@@ -265,6 +266,13 @@ configurations.configureEach {
 }
 
 dependencies {
+    implementation project(":TMessagesProj_Modules:media3:media-lib-exoplayer")
+    implementation project(":TMessagesProj_Modules:media3:media-lib-exoplayer-dash")
+    implementation project(":TMessagesProj_Modules:media3:media-lib-exoplayer-hls")
+    implementation project(":TMessagesProj_Modules:media3:media-lib-decoder-ffmpeg")
+    implementation project(":TMessagesProj_Modules:media3:media-lib-session")
+    implementation 'androidx.webkit:webkit:1.14.0'
+
     // official
     implementation 'androidx.core:core-ktx:1.19.0'
     implementation 'androidx.palette:palette-ktx:1.0.0'

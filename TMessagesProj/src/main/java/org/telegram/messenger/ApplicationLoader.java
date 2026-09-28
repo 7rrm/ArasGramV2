@@ -43,6 +43,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.json.JSONObject;
+import org.telegram.messenger.utils.Choreographer60FpsContent;
 import org.telegram.messenger.voip.VideoCapturerDevice;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
@@ -413,7 +414,11 @@ public class ApplicationLoader extends Application {
         tw.nekomimi.nekogram.MeeroJanitor.start();
     }
 
-    // Local Push Service, TFoss implementation
+
+    private final Runnable debugEverySecondChecks = () -> AndroidUtilities.runOnUIThread(() -> {
+        NotificationCenter.sanitize();
+    });
+
     public static void startPushService() {
         Utilities.stageQueue.postRunnable(ApplicationLoader::startPushServiceInternal);
     }
